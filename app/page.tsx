@@ -12,7 +12,8 @@ export default function HomePage() {
     setUsername(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent the default form submission
     if (username) {
       router.push(`/${username}`);
     }
@@ -28,7 +29,7 @@ export default function HomePage() {
             Zuopins is a 100% free tool for developers to quickly generate a personalized link hub, similar to Linktree, 
             but tailored specifically for GitHub users. Easily share your projects, contributions, and more with a single link.
           </p>
-          <Form className={styles.form}>
+          <Form onSubmit={handleSubmit} className={styles.form}>
             <Form.Group controlId="username">
               <Form.Control 
                 type="text" 
@@ -38,7 +39,7 @@ export default function HomePage() {
                 className={styles.input}
               />
             </Form.Group>
-            <Button variant="primary" onClick={handleSubmit} className={styles.button}>
+            <Button type="submit" variant="primary" className={styles.button}>
               Get Zuopins
             </Button>
           </Form>
