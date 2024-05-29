@@ -1,4 +1,4 @@
-// app/page.tsx
+// app/[...slug]/page.tsx
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -10,7 +10,7 @@ interface LinktreeConfig {
   someKey?: string; // Example property
 }
 
-const Page: React.FC = () => {
+const DynamicPage: React.FC = () => {
   const [config, setConfig] = useState<LinktreeConfig | null>(null);
   const [error, setError] = useState<string | null>(null);
   const rawUrl = 'https://raw.githubusercontent.com/stancsz/stancsz/main/config.yml';
@@ -33,7 +33,7 @@ const Page: React.FC = () => {
 
   return (
     <div className="container my-5">
-      <h1 className="text-center">Page Title</h1>
+      <h1 className="text-center">Dynamic Page Title</h1>
       <p className="text-center">Current Path: {pathname}</p>
       {error ? (
         <p className="text-danger text-center">{error}</p>
@@ -46,4 +46,4 @@ const Page: React.FC = () => {
   );
 };
 
-export default Page;
+export default DynamicPage;
