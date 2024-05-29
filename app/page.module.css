@@ -48,5 +48,6 @@
 }
 
 .button:hover {
-  background-color: darken(var(--github-blue), 10%);
+  background-color: #024c9e; /* A darker shade of the original color */
+  color: white; /* Maintain the text color */
 }
