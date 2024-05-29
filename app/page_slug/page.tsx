@@ -13,7 +13,7 @@ interface Link {
   url: string;
 }
 
-interface LinktreeConfig {
+interface ZuopinsConfig {
   site?: {
     name: string;
     bio: string;
@@ -23,13 +23,13 @@ interface LinktreeConfig {
 
 interface GitHubProfile {
   avatar_url: string;
-  name: string;
+  login: string;
   bio: string;
   html_url: string;
 }
 
 const DynamicPage: React.FC = () => {
-  const [config, setConfig] = useState<LinktreeConfig | null>(null);
+  const [config, setConfig] = useState<ZuopinsConfig | null>(null);
   const [profile, setProfile] = useState<GitHubProfile | null>(null);
   const [error, setError] = useState<string | null>(null);
   const pathname = usePathname();
@@ -64,33 +64,26 @@ const DynamicPage: React.FC = () => {
 
   return (
     <Container className={`${styles.main} my-5`}>
-      <h1 className="text-center">
-        {username} | {config?.site?.name || 'Dynamic Page Title'}
-      </h1>
       {profile && (
         <div className="text-center mb-4">
-          <Image src={profile.avatar_url} roundedCircle width={100} height={100} alt={`${username} avatar`} />
-          <h2>{profile.name}</h2>
-          <p>{profile.bio}</p>
-          <a href={profile.html_url} target="_blank" rel="noopener noreferrer">
-            View GitHub Profile
-          </a>
+          <Image src={profile.avatar_url} roundedCircle width={120} height={120} alt={`${username} avatar`} />
+          <h2 className={styles.profileHandle}>@{profile.login}</h2>
+          <p className={styles.profileBio}>{profile.bio}</p>
         </div>
       )}
-      <p className="text-center">Current Path: {pathname}</p>
       {error ? (
         <p className="text-danger text-center">{error}</p>
       ) : config ? (
         <div className="text-center">
-          <ReactMarkdown>{config.site?.bio || ''}</ReactMarkdown>
-          <div className="mt-4">
+          <ReactMarkdown className={styles.bio}>{config.site?.bio || ''}</ReactMarkdown>
+          <div className="mt-4 d-flex flex-column align-items-center">
             {config.links?.map((link, index) => (
               <Button
                 key={index}
                 href={link.url}
                 target="_blank"
                 variant="primary"
-                className={`${styles.button} m-2`}
+                className={`${styles.button} mb-2`}
               >
                 {link.title}
               </Button>
