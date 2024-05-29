@@ -2,10 +2,12 @@
 
 /* Custom Variables */
 :root {
-  --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+  --github-blue: #0366d6;
+  --github-dark: #24292e;
+  --github-light: #fafbfc;
 }
 
 @media (prefers-color-scheme: dark) {
