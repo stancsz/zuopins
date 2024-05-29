@@ -1,49 +1,41 @@
-// app/page.tsx
 'use client';
+import React, { useState } from 'react';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import styles from './page.module.css';
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import YAML from 'yaml';
-import { usePathname } from 'next/navigation';
+export default function HomePage() {
+  const [username, setUsername] = useState('');
 
-interface LinktreeConfig {
-  someKey?: string; // Example property
-}
+  const handleInputChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    setUsername(e.target.value);
+  };
 
-const Page: React.FC = () => {
-  const [config, setConfig] = useState<LinktreeConfig | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const rawUrl = 'https://raw.githubusercontent.com/stancsz/stancsz/main/config.yml';
-  const pathname = usePathname();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(rawUrl);
-        const parsedConfig = YAML.parse(response.data);
-        setConfig(parsedConfig);
-      } catch (err) {
-        setError('Failed to fetch data');
-        console.error(err);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const handleSubmit = () => {
+    // Add logic to handle getting Zuopins
+    console.log('Get Zuopins for:', username);
+  };
 
   return (
-    <div className="container my-5">
-      <h1 className="text-center">Page Title</h1>
-      <p className="text-center">Current Path: {pathname}</p>
-      {error ? (
-        <p className="text-danger text-center">{error}</p>
-      ) : config ? (
-        <pre className="text-center">{JSON.stringify(config, null, 2)}</pre>
-      ) : (
-        <p className="text-center">Loading...</p>
-      )}
-    </div>
+    <Container className={styles.main}>
+      <Row className="justify-content-center">
+        <Col md={8} className="text-center">
+          <h1>Welcome to Zuopins</h1>
+          <p>Quickly generate your GitHub portfolio with personalized links.</p>
+          <Form>
+            <Form.Group controlId="username">
+              <Form.Control 
+                type="text" 
+                placeholder="Enter your GitHub username" 
+                value={username}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Button variant="primary" onClick={handleSubmit}>
+              Get Zuopins
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
-};
-
-export default Page;
+}
